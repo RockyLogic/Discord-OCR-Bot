@@ -1,6 +1,7 @@
 import discord
 import datetime
 import pytesseract
+import requests
 from PIL import Image
 from PIL import ImageFilter
 from discord.ext import commands
@@ -19,9 +20,11 @@ def storedChannelIDs():
     return idList
 
 #OCR Function 
-def OCRImage():
-    return "test"
-
+def OCRImage(imageLink):
+    response = requests.get(imageLink)
+    img = Image.open(io.BytesIO(response.content))
+    text = pytesseract.image_to_string(img)
+    println(text)
 #Import prompts Here
 #Import prompts Here
 #Import prompts Here
