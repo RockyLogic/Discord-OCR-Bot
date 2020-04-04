@@ -1,3 +1,4 @@
+import io
 import discord
 import datetime
 import pytesseract
@@ -6,12 +7,12 @@ from PIL import Image
 from PIL import ImageFilter
 from discord.ext import commands
 
-token = "Token"
+
 client = commands.Bot(command_prefix="!")
 client = discord.Client()
 
 
-#Reads all of the channel IDs into a List
+#Grabbing List of Channel IDs
 def storedChannelIDs():
     idList = []
     with open ("channel ID.txt", "r") as file:
@@ -19,15 +20,18 @@ def storedChannelIDs():
             idList.append(int(id.strip()))
     return idList
 
+#Grabbing Token
+def getToken():
+    with open ("token.txt","r") as file:
+        token = file.readLine()
+        return token
+    
 #OCR Function 
 def OCRImage(imageLink):
     response = requests.get(imageLink)
     img = Image.open(io.BytesIO(response.content))
     text = pytesseract.image_to_string(img)
-    println(text)
-#Import prompts Here
-#Import prompts Here
-#Import prompts Here
+    print(text)
 
 
 channelIDList = storedChannelIDs()
